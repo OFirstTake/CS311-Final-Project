@@ -53,15 +53,25 @@ Verify that the models are available:
 ollama list
 ```
 
-### 2. Start the application
+### 2. Build and start the application (first run)
 
-From the repository root, run:
+From the repository root, build the image and start the container:
 
 ```bash
 docker compose -f docker/docker-compose.yml up --build
 ```
 
 Open the application at <http://localhost:8501>. Docker Compose configures the app to connect to Ollama on the host at `host.docker.internal:11434` and mounts the data directory for conversation history and the vector store.
+
+### 3. Start the application again
+
+After the image has been built, start the existing container without rebuilding:
+
+```bash
+docker compose -f docker/docker-compose.yml up
+```
+
+Use `--build` again if you change the Dockerfile, dependencies, or application code and want those changes included in a new image.
 
 Stop the application with:
 
