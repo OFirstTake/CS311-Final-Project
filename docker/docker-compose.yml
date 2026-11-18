@@ -6,14 +6,12 @@ services:
       context: ../source_code    
       dockerfile: ../docker/Dockerfile
     container_name: chatbot
-    
-    stdin_open: true
-    tty: true
-    
+
+    ports:
+      - "8501:8501"
+        
     volumes:
       - ../source_code/data:/app/data
-      - ../source_code/vector_store:/app/vector_store
-      - "../source_code/Test questions and results.json:/app/Test questions and results.json"
       
     extra_hosts:
       - "host.docker.internal:host-gateway"

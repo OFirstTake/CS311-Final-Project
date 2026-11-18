@@ -24,7 +24,7 @@ OLLAMA_URL = "http://host.docker.internal:11434" # URL of local (127.0.0.1) Olla
 TOP_K = 5 # Number of top-matched chunks to retrieve.
 SCORE_THRESHOLD = 0.3 # Minimum average relevance score before trusting retrieved context.
 SAMPLE_QUESTION = "What are the requirements for the Computer Science major?"  # Default question.
-QA_OUTPUT_FILE = "Test questions and results.json" # JSON file that stores questions and answers.
+QA_OUTPUT_FILE = DATA_DIR / "Test questions and results.json" # JSON file that stores questions and answers.
 
 # FINAL PROMPT SENT TO THE MODEL: Replacing {context} and {question} with the actual values.
 # Without this instruction, the model might rely entirely on its pretrained knowledge.
