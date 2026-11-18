@@ -1,0 +1,38 @@
+[
+  {
+    "question": "What are the specific course requirements a student must complete to formally declare a Computer Science major?",
+    "answer": "To formally declare a Computer Science major, the student must complete at least two courses:\n\n1. Four advanced courses (16 credits): CS 201 – Data Structures & Algorithms (4 credits), 100-level or 200-level CS course (4 credits), 200-level or 300-level CS course (4 credits), 400-level or 500-level CS course (4 credits)\n\n2. Two additional intermediate courses (8 credits): 100-level or 200-level CS course (8 credits), 200-level or 300-level CS course (8 credits)\n\n3. Two additional advanced courses (8 credits): 400-level or 500-level CS course (8 credits)\n\n4. One additional intermediate course and one additional advanced course (8 credits): 400-level or 500-level CS course (8 credits), 400-level or 500-level CS course (8 credits)\n\nAdditionally, the major requires students to take a total of six courses: CS 101: Introduction to Programming (4 credits), CS 103: Programming for Data Science and Visualization (4 credits), CS 104: Introduction to Computer Science (4 credits), 200-level or 300-level CS course (4 credits), 400-level or 500-level CS course (4 credits), and 400-level or 500-level CS course (4 credits)."
+  },
+  {
+    "question": "What are the three Major Learning Outcomes (MLOs) for the B.S. in Computer Science?   ",
+    "answer": "The three Major Learning Outcomes (MLOs) for the B.S. in Computer Science are:\n\n1. Apply design and systems thinking process to analyze and solve real-world problems.\n2. Demonstrate creative, collaborative, and entrepreneurial thinking and practice.\n3. Develop real-world applications (e.g., software systems and frameworks, mobile apps, data pipelines, etc.) by using knowledge of computer science and other disciplines."
+  },
+  {
+    "question": "Based on the handbook, what are three potential career paths for a graduate with a B.S. in Computer Science?",
+    "answer": "A graduate with a B.S. in Computer Science can pursue several potential career paths, including:\n\n1. Software Engineer: Specializing in software development and maintaining existing applications, this role involves problem-solving, coding, and debugging software to create efficient and user-friendly systems.\n\n2. Testing Engineer: A testing engineer works to ensure software meets user requirements and performs as intended. They may perform unit tests, integration tests, and system tests, and may collaborate with developers and developers from other departments.\n\n3. AI Engineer: With expertise in natural language processing, machine learning, and computer vision, an AI engineer can design and develop algorithms for artificial intelligence applications, such as speech recognition, image analysis, and predictive analytics."
+  },
+  {
+    "question": "Who are the specific faculty members teaching the Bioinformatics course next semester?",
+    "answer": "Based on the context provided, two specific faculty members are teaching the Bioinformatics course next semester. The course is part of the CS 401/402 capstone project. The eligibility criteria for enrollment in CS 401 include a minimum major GPA of 3.5 and approval of a successful application. More detailed guidelines for the capstone in Computer Science can be found in the Computer Science Capstone Handbook."
+  },
+  {
+    "question": "how many students are there in Fulbright University Vietnam?",
+    "answer": "According to the information provided in the documents, Fulbright University Vietnam hosts a total of 1,497 undergraduate students as of the latest available information (as of 2023). The document mentions that the university aims to have 5,000 students by 2023. It also notes that the university has already reached this target in 2018."
+  },
+  {
+    "question": "hehe",
+    "answer": "The context provided describes a course in human-computer interaction (HCI) at a university. It mentions that students will learn about approaches to effectively designing user interfaces, as well as techniques for assessing the usability of software. The course also covers the design and implementation of database systems, with a focus on relational databases. Students will gain experience in research, internships, and student organizations in Vietnam and across the globe. The course aims to prepare students for the world's best companies and graduate programs."
+  },
+  {
+    "question": "how many students are there in Fulbright University Vietnam>?",
+    "answer": "Based on the provided context, the University of Vietnam for Foreign Studies (Fulbright University Vietnam) has 5,000 students."
+  },
+  {
+    "question": "hello",
+    "answer": "In Computer Science, students are expected to apply design and systems thinking processes to analyze and solve real-world problems. They should demonstrate creative, collaborative, and entrepreneurial thinking and practice. Students are also expected to be able to make real-world applications using the knowledge of computer science and other disciplines."
+  },
+  {
+    "question": "What is CS207 course about?",
+    "answer": "CS207 course provides students with an introduction to software construction, focusing on object-oriented concepts and software engineering. The course emphasizes building software systems by applying OO principles and design techniques. Students will gain a solid understanding of technology that builds infrastructure for modern networked applications, including cloud computing, Web browsing, social networking, multimedia streaming, and others."
+  }
+]

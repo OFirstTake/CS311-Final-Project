@@ -1,15 +1,10 @@
 #!/usr/bin/env python3
 
-"""
-Sample code of a RAG System: ask a question, get an answer based on PDF files.
-Usage: python main.py
-       python main.py --question "Your question here"
-"""
-
 # IMPORT LIBRARIES
 import sys
+import json
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Union
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
@@ -29,6 +24,7 @@ OLLAMA_URL = "http://127.0.0.1:11434" # URL of local (127.0.0.1) Ollama server. 
 TOP_K = 5 # Number of top-matched chunks to retrieve.
 SCORE_THRESHOLD = 0.3 # Minimum average relevance score before trusting retrieved context.
 SAMPLE_QUESTION = "What are the requirements for the Computer Science major?"  # Default question.
+QA_OUTPUT_FILE = "Test questions and results.json" # JSON file that stores questions and answers.
 
 # FINAL PROMPT SENT TO THE MODEL: Replacing {context} and {question} with the actual values.
 # Without this instruction, the model might rely entirely on its pretrained knowledge.
@@ -145,7 +141,7 @@ def ask(question: str, db: Chroma, llm: OllamaLLM) -> Dict[str, Any]:
     else:
         # Join chunks with separators for readability.
         context = "\n\n---\n\n".join(
-            # Format each chunk with source header and content.
+            # Include source page with each chunk for citation context.
             "[" + str(s['source']) + ", page " + str(s['page']) + "]\n" + str(s['content']) for s in sources
         )
     # Fill prompt template placeholders with actual values.
@@ -155,17 +151,31 @@ def ask(question: str, db: Chroma, llm: OllamaLLM) -> Dict[str, Any]:
     # Return answer, evidence sources, and fallback status.
     return {'answer': answer, 'sources': sources, 'used_fallback': used_fallback}
 
+# Save a question and its generated answer to a JSON file.
+def save_question_answer(question: str, answer: str, output_file: Union[str, Path] = QA_OUTPUT_FILE) -> None:
+    output_file = Path(output_file)
+    entries = []
+    if output_file.exists():
+        try:
+            with output_file.open("r", encoding="utf-8") as file:
+                existing_entries = json.load(file)
+        except json.JSONDecodeError as exc:
+            raise ValueError(
+                f"Cannot save question and answer because '{output_file}' contains invalid JSON."
+            ) from exc
+        if not isinstance(existing_entries, list):
+            raise ValueError(
+                f"Cannot save question and answer because '{output_file}' must contain a JSON list."
+            )
+        entries = existing_entries
+
+    entries.append({"question": question, "answer": answer})
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    with output_file.open("w", encoding="utf-8") as file:
+        json.dump(entries, file, ensure_ascii=False, indent=2)
+
 # MAIN FUNCTION
 def main():
-    # Parse command-line arguments for question input.
-    import argparse
-    # Create command-line parser with a short description
-    parser = argparse.ArgumentParser(description="Simple RAG Q&A (PDF Files)")
-    # Add question argument with default sample question.
-    parser.add_argument('--question', '-q', default=SAMPLE_QUESTION, help='Question to ask')
-    # Parse command-line arguments.
-    args = parser.parse_args()
-
     # Load embeddings and LLM
     print("Loading Ollama embeddings: " + EMBED_MODEL)
     # Initialize Ollama embedding model.
@@ -177,23 +187,28 @@ def main():
     # Initialize Ollama LLM client.
     llm = OllamaLLM(model=LLM_MODEL, base_url=OLLAMA_URL, temperature=TEMPERATURE)
 
-    # Print user question.
-    print("Q: " + args.question)
-    # Get answer from RAG pipeline.
-    result = ask(args.question, db, llm)
-    # Print answer text.
-    print("\nA: " + result['answer'] + "\n")
-    # If fallback happened, show note.
-    if result['used_fallback']:
-        # Fallback note for transparency.
-        print("(answered from model knowledge — no relevant documents found)")
-    # If retrieval was relevant, show top sources.
-    else:
-        # # Show first 3 sources
-        print("Sources:")
-        for s in result['sources'][:3]:
-            # Print source file and similarity score.
-            print("   " + str(s['source']) + " (page " + str(s['page']) + ")  score=" + str(s['score']))
+    while True:
+        # Read a question from the user.
+        question = input("\nEnter your question (or type '\\exit' to quit): ")
+        if question.strip() == r"\exit":
+            break
+        # Get answer from RAG pipeline.
+        result = ask(question, db, llm)
+        # Save the extracted question and answer to JSON.
+        save_question_answer(question, result['answer'])
+        # Print answer text.
+        print("\nA: " + result['answer'] + "\n")
+        # If fallback happened, show note.
+        if result['used_fallback']:
+            # Fallback note for transparency.
+            print("(answered from model knowledge — no relevant documents found)")
+        # If retrieval was relevant, show top sources.
+        else:
+            # # Show first 3 sources
+            print("Sources:")
+            for s in result['sources'][:3]:
+                # Print source file and similarity score.
+                print("   " + str(s['source']) + " (page " + str(s['page']) + ")  score=" + str(s['score']))
 
 # RUN PROGRAM IF THIS FILE IS EXECUTED DIRECTLY.
 if __name__ == "__main__":
